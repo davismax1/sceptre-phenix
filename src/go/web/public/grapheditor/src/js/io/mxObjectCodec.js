@@ -449,7 +449,26 @@ mxObjectCodec.prototype.encodeObject = function(enc, obj, node)
                 {
                         name = null;
                 }
+                // Replace the path to the image with image=/(image)
+                // This is then used to dynamically update the
+                // path in open.html and Actions.js
+                if(name === "style" && value.includes("image="))
+                {
+                        var indexOfFirst = value.indexOf("image=");
+                        var indexOfLast = value.lastIndexOf("/");
 
+                        var firstHalf = value.substring(0, indexOfFirst+6);
+                        var lastHalf = value.substring(indexOfLast);
+
+                        var revisedValue = firstHalf.concat(lastHalf);
+
+                        this.encodeValue(enc, obj, name, revisedValue, node);
+                }
+                else
+                {
+                        this.encodeValue(enc, obj, name, value, node);
+                }
+                
                 this.encodeValue(enc, obj, name, value, node);
         }
     }
