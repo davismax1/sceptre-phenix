@@ -468,8 +468,6 @@ mxObjectCodec.prototype.encodeObject = function(enc, obj, node)
                 {
                         this.encodeValue(enc, obj, name, value, node);
                 }
-                
-                this.encodeValue(enc, obj, name, value, node);
         }
     }
 };
